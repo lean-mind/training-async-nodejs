@@ -3,20 +3,26 @@ import {
   CodeSurferColumns,
   Step,
 } from "code-surfer";
-import { nightOwl } from "@code-surfer/themes";
 import {Logo} from './components'
 
+# Asincronía en Node.js
 
 
-# Hola! 👋
+<Notes>
+¿Por qué Node.js y no JavaScript? Porque con Node.js sabemos cuál es el
+proceso ya que siempre tira del mismo motor, el V8 de Google. Sin embargo,
+cada navegador, a menos que tire de Chromium, implementa su propio motor de
+JavaScript que puede tener sus variaciones con respecto al V8.
 
-Estás usando [MDX Deck](https://github.com/jxnblk/mdx-deck) y [Code Surfer](https://codesurfer.pomb.us)
+Técnicamente todo lo que veamos hoy debería ser válido para JavaScript, a
+excepción de las librerías propias de Node.js que usemos.
+</Notes>
 
 <Logo/>
 
 ---
 
-<CodeSurfer theme={nightOwl}>
+<CodeSurfer>
 
 
 ```js showNumbers
@@ -39,7 +45,7 @@ console.log(3);
 <Logo/>
 
 ---
- 
+
 # Documentación
 
 - [Componentes de MDX Deck](https://github.com/jxnblk/mdx-deck/blob/73b90eb9a353d300cc9e5ddf3070bb6868298275/docs/components.md)

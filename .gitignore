@@ -4,3 +4,5 @@ node_modules
 # IDE metada
 .vscode
 .idea
+demo/data.txt
+demo/data-upper-case.txt

@@ -11,5 +11,5 @@ function write(amountOfLines){
 }
 
 const start = Date.now()
-write(8_000_000)
+write(1_000_000)
 console.log(`Generated file in ${Date.now() - start}ms`)

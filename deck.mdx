@@ -1,14 +1,14 @@
 import {
   CodeSurfer,
-  CodeSurferColumns,
-  Step,
 } from "code-surfer";
+import {Notes} from 'mdx-deck'
 import {Logo} from './components'
+import eventLoop from './assets/event-loop.webp'
 
 # Asincronía en Node.js
 
-
 <Notes>
+
 ¿Por qué Node.js y no JavaScript? Porque con Node.js sabemos cuál es el
 proceso ya que siempre tira del mismo motor, el V8 de Google. Sin embargo,
 cada navegador, a menos que tire de Chromium, implementa su propio motor de
@@ -17,9 +17,9 @@ JavaScript que puede tener sus variaciones con respecto al V8.
 Técnicamente todo lo que veamos hoy debería ser válido para JavaScript, a
 excepción de las librerías propias de Node.js que usemos.
 
-As an example, let's consider a case where each request to a web server takes 50ms to complete and 45ms of that 50ms is database I/O that can be done asynchronously. Choosing non-blocking asynchronous operations frees up that 45ms per request to handle other requests. This is a significant difference in capacity just by choosing to use non-blocking methods instead of blocking methods.
 
-  A promise is commonly defined as a proxy for a value that will eventually become available.
+
+A promise is commonly defined as a proxy for a value that will eventually become available.
 
 
 </Notes>
@@ -28,22 +28,87 @@ As an example, let's consider a case where each request to a web server takes 50
 
 ---
 
+# Ahora y después
+
 <CodeSurfer>
 
+```js
+log('Before reading file.')
 
-```js showNumbers
-console.log(1);
-console.log(2);
-console.log(3);
+fs.readFile(path.resolve('./demo/data.txt'), (err, data) => {
+  if (err) {
+    throw err
+  }
+  log(`The file has ${data.toString().length} characters.`)
+})
+
+log('After reading file.')
 ```
 
-```diff 1
+</CodeSurfer>
+
+
+<Notes>
+En JavaScript hay veces q
+</Notes>
+
+<Logo/>
+
+---
+
+# ¿Qué es el event loop?
+
+<img src={eventLoop} />
+
+<Notes>
+The event loop is what allows Node.js to perform non-blocking I/O operations — despite the fact that JavaScript is single-threaded — by offloading operations to the system kernel whenever possible.
+
+Since most modern kernels are multi-threaded, they can handle multiple operations executing in the background. When one of these operations completes, the kernel tells Node.js so that the appropriate callback may be added to the poll queue to eventually be executed. We'll explain this in further detail later in this topic.
+</Notes>
+
+<Logo/>
+
+---
+
+## Blocking VS Non-blocking
+
+
+<Notes>
+As an example, let's consider a case where each request to a web server takes 50ms to complete and 45ms of that 50ms is database I/O that can be done asynchronously. Choosing non-blocking asynchronous operations frees up that 45ms per request to handle other requests. This is a significant difference in capacity just by choosing to use non-blocking methods instead of blocking methods.
+</Notes>
+
+<Logo/>
+
+---
+
+
+
+<CodeSurfer>
+
+```js title='Ventajas del async/await frente al callback'
+import * as fs from 'fs'
+
+log('Before reading file.')
+
+fs.readFile(path.resolve('./demo/data.txt'), (err, data) => {
+  if (err) {
+    throw err
+  }
+  log(`The file has ${data.toString().length} characters.`)
+})
+
+log('After reading file.')
 ```
 
-```diff 2
-```
+```js title='Ventajas del async/await frente al callback'
+import * as fs from 'fs/promises'
 
-```diff 3
+log('Before reading file.')
+
+const data = await fs.readFile(path.resolve('./demo/data.txt'))
+log(`The file has ${data.toString().length} characters.`)
+
+log('After reading file.')
 ```
 
 </CodeSurfer>

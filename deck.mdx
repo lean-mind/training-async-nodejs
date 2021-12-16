@@ -58,22 +58,22 @@ import nodeLogo from './assets/node-js-logo.png'
   log('Before reading file.')
 
   fs.readFile(path.resolve('./demo/data.txt'), (err, data) => {
-  if (err) {
-  throw err
-}
-  fileLength = data
-  log('File length updated.')
-})
+    if (err) {
+      throw err
+    }
+    fileLength = data
+    log('File length updated.')
+  })
 
   log('After reading file.')
 
   interval({
-  timeInterval: 100,
-  timeout: 1000,
-  task() {
-  log(`The file has ${fileLength.length} characters.`)
-}
-})
+    timeInterval: 100,
+    timeout: 1000,
+    task() {
+      log(`The file has ${fileLength.length} characters.`)
+    }
+  })
   ```
 
   ```diff title="Ahora y después" 7
@@ -150,7 +150,7 @@ import nodeLogo from './assets/node-js-logo.png'
   ```diff showNumbers title="Ahora y después" 21
   ```
   ```diff showNumbers title="Ahora y después" 22:24
-  ```x
+  ```
   ```diff showNumbers title="Ahora y después" 23
   ```
   ```diff showNumbers title="Ahora y después" 5,13:14,23

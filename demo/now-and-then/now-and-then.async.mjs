@@ -8,7 +8,6 @@ log('Before reading file.')
 
 fileLength = await fs.readFile(path.resolve('./demo/data.txt'))
 log('File length updated.')
-log(`The file has ${fileLength.length} characters.`)
 
 log('After reading file.')
 

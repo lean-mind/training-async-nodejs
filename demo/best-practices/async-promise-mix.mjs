@@ -1,5 +1,6 @@
-import {Benchmark} from "./helpers/index.mjs";
+import {measure} from "../_helpers/index.mjs";
 import {setTimeout} from 'timers/promises'
+import {asyncIteration} from "../_helpers/async-iteration.mjs";
 
 async function doAnotherThingAsync() {
   await setTimeout(3)
@@ -36,12 +37,8 @@ function doSomethingAsyncThenAwait() {
   })
 }
 
-const suite = new Benchmark('Mixing Promises with Async')
-await suite.add('using then inside Promise', doSomethingAsyncThen)
-await suite.add('using async inside Promise', doSomethingAsync)
-await suite.add('using async inside then', doSomethingAsyncThenAwait)
-suite.printResults()
-
-console.assert(await doSomethingAsync() === 42, 'doSomethingAsync fails')
-console.assert(await doSomethingAsyncThen() === 42, 'doSomethingAsyncThen fails')
-console.assert(await doSomethingAsyncThenAwait() === 42, 'doSomethingAsyncThenAwait fails')
+const amountOfExecutions = 1_000
+console.log(`Mixing Promises with Async  for ${amountOfExecutions} executions`)
+await measure('mixing async/await and then', () => asyncIteration(amountOfExecutions, doSomethingAsyncThenAwait))
+await measure('using then', () => asyncIteration(amountOfExecutions, doSomethingAsyncThen))
+await measure('using async/await', () => asyncIteration(amountOfExecutions, doSomethingAsync))

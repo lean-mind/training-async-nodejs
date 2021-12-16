@@ -1,4 +1,4 @@
-import {log} from "./helpers/index.mjs";
+import {log} from "../_helpers/index.mjs";
 
 function doSomethingAsync() {
   return new Promise(resolve => {

@@ -6,3 +6,5 @@ node_modules
 .idea
 demo/data.txt
 demo/data-upper-case.txt
+docs
+package-lock.json

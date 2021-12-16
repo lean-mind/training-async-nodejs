@@ -3,7 +3,7 @@ import path from "path";
 import * as fs from "fs";
 
 // Slowest
-export async function copyToUpperCase(readableStream, writableStream) {
+export async function transformToUpperCase(readableStream, writableStream) {
   const data = [];
 
   return new Promise(async (resolve) => {
@@ -23,7 +23,7 @@ export async function copyToUpperCase(readableStream, writableStream) {
   });
 }
 
-export function copyToUpperCase2(readableStream, writableStream) {
+export function transformToUpperCase2(readableStream, writableStream) {
   const data = [];
 
   return new Promise((resolve) => {
@@ -45,7 +45,7 @@ export function copyToUpperCase2(readableStream, writableStream) {
 }
 
 // Fastest
-export async function copyToUpperCaseWithAsyncGenerator(
+export async function transformToUpperCaseWithAsyncGenerator(
   readableStream,
   writableStream
 ) {
@@ -61,15 +61,16 @@ export async function copyToUpperCaseWithAsyncGenerator(
 const inputPath = path.resolve("demo/data.txt");
 const outputPath = path.resolve("demo/data-upper-case.txt");
 
+console.log('Compare executions transforming a file')
 await measure(
-  'copyToUpperCase',
-  () => copyToUpperCase(fs.createReadStream(inputPath),  fs.createWriteStream(outputPath))
+  'mixing events with async/await',
+  () => transformToUpperCase(fs.createReadStream(inputPath),  fs.createWriteStream(outputPath))
 )
 await measure(
-  'copyToUpperCase2',
-  () => copyToUpperCase2(fs.createReadStream(inputPath),  fs.createWriteStream(outputPath))
+  'using events',
+  () => transformToUpperCase2(fs.createReadStream(inputPath),  fs.createWriteStream(outputPath))
 )
 await measure(
-  'copyToUpperCaseWithAsyncGenerator',
-  () => copyToUpperCaseWithAsyncGenerator(fs.createReadStream(inputPath),  fs.createWriteStream(outputPath))
+  'using async generator',
+  () => transformToUpperCaseWithAsyncGenerator(fs.createReadStream(inputPath),  fs.createWriteStream(outputPath))
 )

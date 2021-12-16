@@ -10,5 +10,8 @@ function doSomethingAsync() {
   })
 }
 
-await doSomethingAsync()
+log('RIGHT BEFORE INVOKING SOMETHING')
+const promise = doSomethingAsync()
+log('RIGHT BEFORE RESOLVING SOMETHING')
+await promise // also you can use .then here
 log('DONE!')

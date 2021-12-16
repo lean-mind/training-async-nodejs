@@ -4,6 +4,7 @@ import {
 import {Notes} from 'mdx-deck'
 import {Logo} from './components'
 import eventLoop from './assets/event-loop.webp'
+import nowAndThen from './assets/now-and-then.png'
 
 # Asincronía en Node.js
 
@@ -21,6 +22,8 @@ excepción de las librerías propias de Node.js que usemos.
 
 A promise is commonly defined as a proxy for a value that will eventually become available.
 
+De esto va la asincronía **a value that will eventually become available**
+
 
 </Notes>
 
@@ -28,21 +31,28 @@ A promise is commonly defined as a proxy for a value that will eventually become
 
 ---
 
-# Ahora y después
-
 <CodeSurfer>
 
-```js
+```js title="Ahora y después"
 log('Before reading file.')
 
 fs.readFile(path.resolve('./demo/data.txt'), (err, data) => {
   if (err) {
     throw err
   }
-  log(`The file has ${data.toString().length} characters.`)
+  log(`The file has ${data.length} characters.`)
 })
 
 log('After reading file.')
+```
+
+```diff title="Ahora y después" 1
+```
+
+```diff title="Ahora y después" 3:8
+```
+
+```diff title="Ahora y después"  10
 ```
 
 </CodeSurfer>
@@ -51,6 +61,14 @@ log('After reading file.')
 <Notes>
 En JavaScript hay veces q
 </Notes>
+
+<Logo/>
+
+---
+
+# Ahora y después
+
+<img src={nowAndThen} />
 
 <Logo/>
 
@@ -82,7 +100,6 @@ As an example, let's consider a case where each request to a web server takes 50
 ---
 
 
-
 <CodeSurfer>
 
 ```js title='Ventajas del async/await frente al callback'
@@ -94,7 +111,7 @@ fs.readFile(path.resolve('./demo/data.txt'), (err, data) => {
   if (err) {
     throw err
   }
-  log(`The file has ${data.toString().length} characters.`)
+  log(`The file has ${data.length} characters.`)
 })
 
 log('After reading file.')
@@ -106,7 +123,7 @@ import * as fs from 'fs/promises'
 log('Before reading file.')
 
 const data = await fs.readFile(path.resolve('./demo/data.txt'))
-log(`The file has ${data.toString().length} characters.`)
+log(`The file has ${data.length} characters.`)
 
 log('After reading file.')
 ```

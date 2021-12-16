@@ -2,8 +2,8 @@ import {
   CodeSurfer,
 } from "code-surfer";
 import {Notes} from 'mdx-deck'
-import {Logo} from './components'
-import eventLoop from './assets/event-loop.webp'
+import {Logo, ImageWithDescription} from './components'
+import eventLoop from './assets/node-schema.png'
 import nowAndThen from './assets/now-and-then.png'
 
 # Asincronía en Node.js
@@ -18,14 +18,18 @@ JavaScript que puede tener sus variaciones con respecto al V8.
 Técnicamente todo lo que veamos hoy debería ser válido para JavaScript, a
 excepción de las librerías propias de Node.js que usemos.
 
-
-
 A promise is commonly defined as a proxy for a value that will eventually become available.
 
 De esto va la asincronía **a value that will eventually become available**
 
 
 </Notes>
+
+<Logo/>
+
+---
+
+# Ahora y después
 
 <Logo/>
 
@@ -76,7 +80,15 @@ En JavaScript hay veces q
 
 # ¿Qué es el event loop?
 
-<img src={eventLoop} />
+<ImageWithDescription
+  src={eventLoop}
+  alt='Node.js Schema'
+  id='node-event-loop'
+>
+  Imagen de https://www.tutorialandexample.com
+</ImageWithDescription>
+
+
 
 <Notes>
 The event loop is what allows Node.js to perform non-blocking I/O operations — despite the fact that JavaScript is single-threaded — by offloading operations to the system kernel whenever possible.

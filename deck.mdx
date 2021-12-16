@@ -1,80 +1,246 @@
-import {
-  CodeSurfer,
-} from "code-surfer";
-import {Notes} from 'mdx-deck'
-import {Logo, ImageWithDescription} from './components'
+import { CodeSurfer } from "code-surfer";
+import { Notes, Appear } from 'mdx-deck'
+import { Logo, ImageWithDescription } from './components'
 import eventLoop from './assets/node-schema.png'
 import nowAndThen from './assets/now-and-then.png'
+import nodeLogo from './assets/node-js-logo.png'
 
 # Asincronía en Node.js
 
+<img src={nodeLogo} />
+
 <Notes>
 
-¿Por qué Node.js y no JavaScript? Porque con Node.js sabemos cuál es el
-proceso ya que siempre tira del mismo motor, el V8 de Google. Sin embargo,
-cada navegador, a menos que tire de Chromium, implementa su propio motor de
-JavaScript que puede tener sus variaciones con respecto al V8.
+  ¿Por qué Node.js y no JavaScript? Porque con Node.js sabemos cuál es el
+  proceso ya que siempre tira del mismo motor, el V8 de Google. Sin embargo,
+  cada navegador, a menos que tire de Chromium, implementa su propio motor de
+  JavaScript que puede tener sus variaciones con respecto al V8.
 
-Técnicamente todo lo que veamos hoy debería ser válido para JavaScript, a
-excepción de las librerías propias de Node.js que usemos.
-
-A promise is commonly defined as a proxy for a value that will eventually become available.
-
-De esto va la asincronía **a value that will eventually become available**
-
+  Técnicamente todo lo que veamos hoy debería ser válido para JavaScript, a
+  excepción de las librerías propias de Node.js que usemos.
 
 </Notes>
 
-<Logo/>
+<Logo />
 
 ---
 
-# Ahora y después
+# ¿Qué es la asincronía?
 
-<Logo/>
+<Logo />
+
+<Notes>
+  Asincronía significa que pueden pasar cosas independientemente del flujo
+  del programa principal.
+</Notes>
+
+---
+
+## Ahora y después
+
+<Logo />
+
+<Notes>
+  Otra forma de ver la asincronía es ver las cosas
+</Notes>
 
 ---
 
 <CodeSurfer>
 
-```js title="Ahora y después"
-log('Before reading file.')
+  ```js showNumbers title="Ahora y después"
+  import * as fs from 'fs'
+  import * as path from "path";
+  import {interval, log} from "../_helpers/index.mjs";
 
-fs.readFile(path.resolve('./demo/data.txt'), (err, data) => {
+  let fileLength = ''
+
+  log('Before reading file.')
+
+  fs.readFile(path.resolve('./demo/data.txt'), (err, data) => {
   if (err) {
-    throw err
-  }
-  log(`The file has ${data.length} characters.`)
+  throw err
+}
+  fileLength = data
+  log('File length updated.')
 })
 
-log('After reading file.')
-```
+  log('After reading file.')
 
-```diff title="Ahora y después" 1
-```
+  interval({
+  timeInterval: 100,
+  timeout: 1000,
+  task() {
+  log(`The file has ${fileLength.length} characters.`)
+}
+})
+  ```
 
-```diff title="Ahora y después" 3:8
-```
+  ```diff title="Ahora y después" 7
+  ```
 
-```diff title="Ahora y después"  10
-```
+  ```diff title="Ahora y después" 9:15
+  ```
+
+  ```diff title="Ahora y después" 17
+  ```
+
+  ```diff title="Ahora y después" 19:25
+  ```
+
+  ```diff title="Ahora y después" 7,14,17,23
+  ```
 
 </CodeSurfer>
 
-
-<Notes>
-En JavaScript hay veces q
-</Notes>
-
-<Logo/>
+<Logo />
 
 ---
 
-# Ahora y después
+## Ahora y después
 
 <img src={nowAndThen} />
 
-<Logo/>
+<Logo />
+
+---
+
+<CodeSurfer>
+
+  ```js showNumbers title="Ahora y después"
+  import * as fs from 'fs'
+  import * as path from "path";
+  import {interval, log} from "../_helpers/index.mjs";
+
+  let fileLength = ''
+
+  log('Before reading file.')
+
+  fs.readFile(path.resolve('./demo/data.txt'), (err, data) => {
+    if (err) {
+      throw err
+    }
+    fileLength = data
+    log('File length updated.')
+  })
+
+  log('After reading file.')
+
+  interval({
+    timeInterval: 100,
+    timeout: 1000,
+    task() {
+      log(`The file has ${fileLength.length} characters.`)
+    }
+  })
+  ```
+
+  ```diff showNumbers title="Ahora y después" 9:15
+  ```
+  ```diff showNumbers title="Ahora y después" 9[45:61],10:14,15[1]
+  ```
+  ```diff showNumbers title="Ahora y después" 10:12
+  ```
+  ```diff showNumbers title="Ahora y después" 13:14
+  ```
+  ```diff showNumbers title="Ahora y después" 19:25
+  ```
+  ```diff showNumbers title="Ahora y después" 20
+  ```
+  ```diff showNumbers title="Ahora y después" 21
+  ```
+  ```diff showNumbers title="Ahora y después" 22:24
+  ```x
+  ```diff showNumbers title="Ahora y después" 23
+  ```
+  ```diff showNumbers title="Ahora y después" 5,13:14,23
+  ```
+</CodeSurfer>
+
+<Logo />
+
+---
+
+## Ahora y después
+
+<img src={nowAndThen} />
+
+<Logo />
+
+---
+
+# Maneras de gestionar asincronía
+
+<Logo />
+
+---
+
+## Callbacks
+
+<Logo />
+
+---
+
+## Eventos
+
+<Logo />
+
+---
+
+## Promise
+
+<Appear>
+
+  *Un valor que en algún momento estará disponible.*
+
+</Appear>
+
+<Logo />
+
+---
+
+## async / await
+
+<Logo />
+
+---
+
+
+<CodeSurfer>
+
+  ```js title='Ventajas del async/await frente al callback'
+  import * as fs from 'fs'
+
+  log('Before reading file.')
+
+  fs.readFile(path.resolve('./demo/data.txt'), (err, data) => {
+    if (err) {
+      throw err
+    }
+    log(`The file has ${data.length} characters.`)
+  })
+
+  log('After reading file.')
+  ```
+
+  ```js title='Ventajas del async/await frente al callback'
+  import * as fs from 'fs/promises'
+
+  log('Before reading file.')
+
+  const data = await fs.readFile(path.resolve('./demo/data.txt'))
+  log(`The file has ${data.length} characters.`)
+
+  log('After reading file.')
+  ```
+
+</CodeSurfer>
+
+---
+
+## async iterators
+
+<Logo />
 
 ---
 
@@ -91,18 +257,26 @@ En JavaScript hay veces q
 
 
 <Notes>
-The event loop is what allows Node.js to perform non-blocking I/O operations — despite the fact that JavaScript is single-threaded — by offloading operations to the system kernel whenever possible.
+  The event loop is what allows Node.js to perform non-blocking I/O operations —
+  despite the fact that JavaScript is single-threaded — by offloading operations
+  to the system kernel whenever possible.
 
-Since most modern kernels are multi-threaded, they can handle multiple operations executing in the background. When one of these operations completes, the kernel tells Node.js so that the appropriate callback may be added to the poll queue to eventually be executed. We'll explain this in further detail later in this topic.
+  Since most modern kernels are multi-threaded, they can handle multiple
+  operations executing in the background. When one of these operations
+  completes, the kernel tells Node.js so that the appropriate callback may be
+  added to the poll queue to eventually be executed. We'll explain this in
+  further detail later in this topic.
 </Notes>
 
-<Logo/>
+<Logo />
 
 ---
 
-<iframe src='https://www.jsv9000.app/?code=Y29uc29sZS5sb2coJ1N0YXJ0JykKCmNvbnNvbGUubG9nKCdGZXRjaCcpCmZldGNoKCdodHRwczovL2dvd2VhdGhlci5oZXJva3VhcHAuY29tL3dlYXRoZXIvVmFsdmVyZGUnKQogIC50aGVuKHJlcyA9PiByZXMuanNvbigpKQogIC50aGVuKGNvbnNvbGUubG9nKQogIApjb25zb2xlLmxvZygnRW5kJyk%3D' height="80%" width="80%"/>
+<iframe
+  src='https://www.jsv9000.app/?code=Y29uc29sZS5sb2coJ1N0YXJ0JykKCmNvbnNvbGUubG9nKCdGZXRjaCcpCmZldGNoKCdodHRwczovL2dvd2VhdGhlci5oZXJva3VhcHAuY29tL3dlYXRoZXIvVmFsdmVyZGUnKQogIC50aGVuKHJlcyA9PiByZXMuanNvbigpKQogIC50aGVuKGNvbnNvbGUubG9nKQogIApjb25zb2xlLmxvZygnRW5kJyk%3D'
+  height="80%" width="80%" />
 
-<Logo/>
+<Logo />
 
 ---
 
@@ -111,51 +285,19 @@ Since most modern kernels are multi-threaded, they can handle multiple operation
 
 
 <Notes>
-As an example, let's consider a case where each request to a web server takes 50ms to complete and 45ms of that 50ms is database I/O that can be done asynchronously. Choosing non-blocking asynchronous operations frees up that 45ms per request to handle other requests. This is a significant difference in capacity just by choosing to use non-blocking methods instead of blocking methods.
+  As an example, let's consider a case where each request to a web server takes
+  50ms to complete and 45ms of that 50ms is database I/O that can be done
+  asynchronously. Choosing non-blocking asynchronous operations frees up that
+  45ms per request to handle other requests. This is a significant difference in
+  capacity just by choosing to use non-blocking methods instead of blocking
+  methods.
 </Notes>
 
-<Logo/>
+<Logo />
 
 ---
 
-
-<CodeSurfer>
-
-```js title='Ventajas del async/await frente al callback'
-import * as fs from 'fs'
-
-log('Before reading file.')
-
-fs.readFile(path.resolve('./demo/data.txt'), (err, data) => {
-  if (err) {
-    throw err
-  }
-  log(`The file has ${data.length} characters.`)
-})
-
-log('After reading file.')
-```
-
-```js title='Ventajas del async/await frente al callback'
-import * as fs from 'fs/promises'
-
-log('Before reading file.')
-
-const data = await fs.readFile(path.resolve('./demo/data.txt'))
-log(`The file has ${data.length} characters.`)
-
-log('After reading file.')
-```
-
-</CodeSurfer>
-
-<Logo/>
-
----
-
-
-
-<Logo/>
+<Logo />
 
 ---
 
@@ -165,4 +307,4 @@ log('After reading file.')
 - [Layout de MDX Deck](https://github.com/jxnblk/mdx-deck/blob/73b90eb9a353d300cc9e5ddf3070bb6868298275/docs/layouts.md)
 - [Code Surfer](https://codesurfer.pomb.us)
 
-<Logo/>
+<Logo />

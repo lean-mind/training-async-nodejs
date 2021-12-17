@@ -12,7 +12,9 @@ import nodeLogo from './assets/node-js-logo.png'
 <Notes>
 
   ¿Por qué Node.js y no JavaScript? Porque con Node.js sabemos cuál es el
-  proceso ya que siempre tira del mismo motor, el V8 de Google. Sin embargo,
+  proceso ya que siempre tira del mismo motor, el V8 de Google.
+
+  Sin embargo,
   cada navegador, a menos que tire de Chromium, implementa su propio motor de
   JavaScript que puede tener sus variaciones con respecto al V8.
 
@@ -30,9 +32,12 @@ import nodeLogo from './assets/node-js-logo.png'
 <Logo />
 
 <Notes>
+
   - Asincronía significa que pueden pasar cosas independientemente del flujo
   del programa principal.
+
   - Son esas cosas que hace tu app que no tienen que ver con el dominio, sino con la infraestructura: ficheros, bases de datos, redes, etc.
+
 </Notes>
 
 ---
@@ -42,7 +47,9 @@ import nodeLogo from './assets/node-js-logo.png'
 <Logo />
 
 <Notes>
-  Otra forma de ver la asincronía es ver las cosas
+
+  Otra forma de ver la asincronía es pensando en ahora y después.
+
 </Notes>
 
 ---
@@ -193,10 +200,15 @@ fs.readFile(path.resolve('./demo/data.txt'), (err, data) => {
 <Logo />
 
 <Notes>
+
   - Es la gestión de asincronía clásica.
+
   - No confundir con el resto de callbacks como los de los arrays por ejemplo.
+
   - Estos callbacks siempre tienen la firma de error-first. El primer parámetro siempre será el error, en caso de no haya error será null.
+
   - Uno de sus mayores problemas es el callback hell
+
 </Notes>
 
 ---
@@ -248,9 +260,13 @@ fs.readFile(path.resolve('./demo/data.txt'), (err, data) => {
 <Logo />
 
 <Notes>
+
   - El Event Emitter es exclusivo de Node.js, en navegador lo más parecido creo que es el CustomEvents.
+
   - La gestión de asincronía por eventos marcó la diferencia con Node.js.
+
   - Anécdota sobre Promi: fue nuestra libería de Promesas a través de eventos. Al final cuando las Promesas se estabilizaron en Node.js simplemente subimos de versión y lo reemplazamos por promesas al uso y más tarde por async/await
+
 </Notes>
 
 ---
@@ -268,6 +284,7 @@ fs.readFile(path.resolve('./demo/data.txt'), (err, data) => {
 <Notes>
 
   - Promise es el tipo para los valores asíncronos.
+
   - El Promise es la solución del lenguaje a todos los problemas que habían con la gestión de asincronía.
 
 </Notes>
@@ -419,6 +436,7 @@ fs.readFile(path.resolve('./demo/data.txt'), (err, data) => {
 
 
 <Notes>
+
   El Event Loop es lo que permite a Node.js realizar operaciones de entrada y salida sin bloquear procesos, a pesar del hecho de que JavaScript es de un solo hilo, descargando operaciones al kernel del sistema siempre que sea posible.
 
   Dado que la mayoría de los núcleos modernos son multihilo, pueden manejar múltiples operaciones que se ejecutan en segundo plano. Cuando se completa una de estas operaciones, el kernel le dice a Node.js para que se pueda agregar el callback adecuado a la cola para que finalmente se ejecute.

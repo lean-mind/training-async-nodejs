@@ -175,15 +175,47 @@ import nodeLogo from './assets/node-js-logo.png'
 
 ---
 
-## Callbacks
+<CodeSurfer>
+  ```js title='Callbacks'
+  fs.readFile(path.resolve('./demo/data.txt'), (err, data) => {
+      if (err) {
+        throw err
+      }
+      fileLength = data
+      log('File length updated.')
+  })
+  ```
+</CodeSurfer>
 
 <Logo />
 
 ---
 
-## Eventos
+<CodeSurfer>
+  ```js title="Eventos"
+  export function readFileFromStream(readableStream) {
+    const data = [];
+
+    return new Promise((resolve) => {
+      readableStream
+        .on("data", (chunk) => {
+          data.push(chunk);
+        })
+        .on("end", () => {
+          return resolve(data.length);
+        })
+    })
+  }
+  ```
+</CodeSurfer>
 
 <Logo />
+
+<Notes>
+  - Event Emitter en Node.js, Custom Event en Navegador
+  - La gestión de asincronía por eventos marcó la diferencia con Node.js.
+  - En su momento estuve en un equipo en el que creamos nuestro propio Promise con el Event Emitter, ya que en ese entonces todavía Promise no era estable.
+</Notes>
 
 ---
 
@@ -196,6 +228,13 @@ import nodeLogo from './assets/node-js-logo.png'
 </Appear>
 
 <Logo />
+
+<Notes>
+
+  - Promise es el tipo para los valores asíncronos.
+  - El Promise es la solución del lenguaje a todos los problemas que habían con la gestión de asincronía.
+
+</Notes>
 
 ---
 
@@ -296,6 +335,16 @@ import nodeLogo from './assets/node-js-logo.png'
 <Logo />
 
 ---
+
+# Buenas prácticas
+
+<Appear>
+
+  - No mezcles formas de gestionar asincronía.
+  - Usa async / await a menos que no tengas más remedio.
+  - No tengas miedo de usar promisify para convertir callbacks en promesas.
+
+</Appear>
 
 <Logo />
 

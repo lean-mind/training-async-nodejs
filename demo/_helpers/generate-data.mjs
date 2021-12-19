@@ -4,8 +4,9 @@ import {EOL} from 'os'
 
 function write(amountOfLines){
   const file = fs.createWriteStream(path.resolve('demo/data.txt'));
+  const text = `Hodor! Hodor hodor. Hodor hodor! Hodor, hodor. Hodor. Hodor, hodor, hodor hodor. HODOR? Hodor hodor! Hodor hodor HODOR! Hodor.${EOL}`
   for(let i=0; i<= amountOfLines; i++) {
-    file.write(`Hodor! Hodor hodor. Hodor hodor! Hodor, hodor. Hodor. Hodor, hodor, hodor hodor. HODOR? Hodor hodor! Hodor hodor HODOR! Hodor.${EOL}`);
+    file.write(`${text}${text}${text}${text}${text}${text}${text}${text}${text}`);
   }
   file.end('')
 }

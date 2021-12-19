@@ -12,6 +12,7 @@
   },
   "name": "mdx-deck-template",
   "dependencies": {
+    "faker": "^5.5.3",
     "styled-components": "^5.3.1",
     "undici": "^4.12.0"
   },
